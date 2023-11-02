@@ -1,0 +1,48 @@
+import React, { Component } from 'react';
+
+class WorkoutTracker extends Component {
+  constructor() {
+    super();
+    this.state = {
+      workouts: [],
+      newWorkout: '',
+    };
+  }
+
+  handleWorkoutChange = (e) => {
+    this.setState({ newWorkout: e.target.value });
+  }
+
+  addWorkout = () => {
+    if (this.state.newWorkout) {
+      this.setState((prevState) => ({
+        workouts: [...prevState.workouts, prevState.newWorkout],
+        newWorkout: '',
+      }));
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Workout Tracker</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Add a workout"
+            value={this.state.newWorkout}
+            onChange={this.handleWorkoutChange}
+          />
+          <button onClick={this.addWorkout}>Add</button>
+        </div>
+        <ul>
+          {this.state.workouts.map((workout, index) => (
+            <li key={index}>{workout}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default WorkoutTracker;
